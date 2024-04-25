@@ -1,20 +1,20 @@
 class Solution:
     def tribonacci(self, n: int) -> int:
-        if n == 0:
-            return 0
-        elif n == 1 or n == 2:
-            return 1
+        memo = {}
         
-        # Initialize an array to store previously calculated Tribonacci numbers
-        tribonacci_nums = [0] * (n + 1)
-        tribonacci_nums[1] = 1
-        tribonacci_nums[2] = 1
+        def trib(n):
+            if n in memo:
+                return memo[n]
+            if n == 0:
+                return 0
+            elif n == 1 or n == 2:
+                return 1
+            else:
+                result = trib(n - 1) + trib(n - 2) + trib(n - 3)
+                memo[n] = result
+                return result
         
-        # Calculate Tribonacci numbers iteratively
-        for i in range(3, n + 1):
-            tribonacci_nums[i] = tribonacci_nums[i - 1] + tribonacci_nums[i - 2] + tribonacci_nums[i - 3]
-        
-        return tribonacci_nums[n]
+        return trib(n)
 
 # Test cases
 solution = Solution()
